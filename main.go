@@ -45,14 +45,14 @@ func (p plugin) Meta() meta.Meta {
 	return &meta.Data{
 		ID: meta.ID{
 			ID:      "nori/custom/dummy",
-			Version: "1.0",
+			Version: "1.0.0",
 		},
 		Author: meta.Author{
 			Name: "Nori",
 			URI:  "https://nori.io",
 		},
 		Core: meta.Core{
-			VersionConstraint: ">=1.0, <2.0",
+			VersionConstraint: ">=1.0, <2.0.0",
 		},
 		Dependencies: []meta.Dependency{meta.HTTP.Dependency("")},
 		Description: meta.Description{
