@@ -54,7 +54,9 @@ func (p plugin) Meta() meta.Meta {
 		Core: meta.Core{
 			VersionConstraint: ">=1.0, <2.0.0",
 		},
-		Dependencies: []meta.Dependency{},
+		Dependencies: []meta.Dependency{
+			meta.HTTP.Dependency("1.0.0"),
+		},
 		Description: meta.Description{
 			Name:        "Nori InMemory Cache",
 			Description: "InMemory Cache",

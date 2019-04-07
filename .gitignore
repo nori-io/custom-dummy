@@ -1,0 +1,11 @@
+# OS
+.DS_Store
+
+# Build
+bin
+vendor
+*.so
+
+# IDE
+.idea/
+*.iml
