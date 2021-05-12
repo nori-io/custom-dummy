@@ -17,7 +17,8 @@ import (
 	"context"
 	"encoding/json"
 	rest "github.com/cheebo/gorest"
-	norihttp "github.com/nori-io/nori-common/transport/http"
+	// norihttp "github.com/nori-io/nori-common/transport/http"
+	norihttp "github.com/nori-io/common/v4/pkg/errors"
 	"net/http"
 )
 

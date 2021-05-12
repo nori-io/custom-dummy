@@ -14,12 +14,11 @@
 package service
 
 import (
-	"github.com/nori-io/nori-common/interfaces"
-	"github.com/nori-io/nori-common/transport/http"
+	"github.com/nori-io/interfaces/nori/http"
 	"github.com/sirupsen/logrus"
 )
 
-func Transport(router interfaces.Http, srv Service, log *logrus.Logger) {
+func Transport(router http.Http, srv Service, log *logrus.Logger) {
 	dummyHandler := http.NewServer(
 		MakeDummyEndpoint(srv),
 		DecodeDummyRequest,

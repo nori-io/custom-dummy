@@ -16,7 +16,7 @@ package service
 import (
 	"context"
 
-	"github.com/nori-io/nori-common/endpoint"
+	"github.com/nori-io/common/v4/pkg/domain/endpoint"
 )
 
 func MakeDummyEndpoint(s Service) endpoint.Endpoint {

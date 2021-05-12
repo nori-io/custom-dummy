@@ -11,29 +11,36 @@
 //
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program; if not, see <http://www.gnu.org/licenses/>.
-package main
+package plugin
 
 import (
 	"context"
+	"github.com/nori-io/common/v4/pkg/domain/config"
+	em "github.com/nori-io/common/v4/pkg/domain/enum/meta"
+	"github.com/nori-io/common/v4/pkg/domain/logger"
+	"github.com/nori-io/common/v4/pkg/domain/meta"
+	"github.com/nori-io/common/v4/pkg/domain/registry"
+	m "github.com/nori-io/common/v4/pkg/meta"
+	"github.com/nori-plugins/dummy/pkg/dummy"
 
-	"github.com/nori-io/nori-common/meta"
+	"github.com/nori-io/interfaces/nori/http"
 
-	cfg "github.com/nori-io/nori-common/config"
-
-	iplugin "github.com/nori-io/nori-common/plugin"
-	"github.com/nori-io/dummy/service"
+	p "github.com/nori-io/common/v4/pkg/domain/plugin"
 )
 
+func New() p.Plugin {
+	return &plugin{}
+}
+
 type plugin struct {
-	instance service.Service
+	instance *dummy.HttpDummy
 }
 
 var (
 	Plugin plugin
 )
 
-func (p *plugin) Init(_ context.Context, configManager cfg.Manager) error {
-	configManager.Register(p.Meta())
+func (p plugin) Init(ctx context.Context, config config.Config, log logger.FieldLogger) error {
 	return nil
 }
 
@@ -42,45 +49,40 @@ func (p *plugin) Instance() interface{} {
 }
 
 func (p plugin) Meta() meta.Meta {
-	return &meta.Data{
-		ID: meta.ID{
+	return m.Meta{
+		ID: m.ID{
 			ID:      "nori/custom/dummy",
 			Version: "1.0.0",
 		},
-		Author: meta.Author{
+		Author: m.Author{
 			Name: "Nori",
-			URI:  "https://nori.io",
-		},
-		Core: meta.Core{
-			VersionConstraint: ">=1.0, <2.0.0",
+			URL:  "https://nori.io",
 		},
 		Dependencies: []meta.Dependency{
-			meta.HTTP.Dependency("1.0.0"),
+			http.HttpInterface,
 		},
-		Description: meta.Description{
-			Name:        "Nori InMemory Cache",
-			Description: "InMemory Cache",
-		},
-		Interface: meta.Custom,
-		License: meta.License{
-			Title: "",
-			Type:  "GPLv3",
-			URI:   "https://www.gnu.org/licenses/",
+		Description: nil,
+		Interface:dummy.DummyInterface ,
+		License: nil,
+		Links:nil,
+		Repository: m.Repository{
+			Type: em.Git,
+			URL:  "github.com/nori-plugins/dummy",
 		},
 		Tags: []string{"dummy", "rest", "api"},
 	}
 }
 
-func (p *plugin) Start(ctx context.Context, registry iplugin.Registry) error {
-	if p.instance == nil {
+func (p plugin) Start(ctx context.Context, registry registry.Registry) error {
+/*	if p.instance == nil {
 		p.instance = service.NewService()
 		http, _ := registry.Http()
 		service.Transport(http, p.instance, registry.Logger(p.Meta()))
-	}
+	}*/
 	return nil
 }
 
-func (p *plugin) Stop(_ context.Context, _ iplugin.Registry) error {
+func (p plugin) Stop(ctx context.Context, registry registry.Registry) error {
 	p.instance = nil
 	return nil
 }
