@@ -2,8 +2,7 @@ package dummy
 
 import "github.com/nori-io/common/v4/pkg/domain/meta"
 
-const DummyInterface meta.Interface = "nori/Dummy"
+const DummyInterface meta.Interface = "nori/http/Dummy"
 
-type HttpDummy interface {
-	Stop()
+type Dummy interface {
 }

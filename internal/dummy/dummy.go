@@ -9,6 +9,7 @@ type Instance struct {
 	Http http.Http
 }
 
+
 func New(r registry.Registry) (*Instance, error) {
 
 	dummyNew, err := http.GetHttp(r)

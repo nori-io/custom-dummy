@@ -21,9 +21,9 @@ import (
 	"github.com/nori-io/common/v4/pkg/domain/meta"
 	"github.com/nori-io/common/v4/pkg/domain/registry"
 	m "github.com/nori-io/common/v4/pkg/meta"
-	"github.com/nori-plugins/dummy/pkg/dummy"
-
 	"github.com/nori-io/interfaces/nori/http"
+	dummy2 "github.com/nori-plugins/dummy/internal/dummy"
+	"github.com/nori-plugins/dummy/pkg/dummy"
 
 	p "github.com/nori-io/common/v4/pkg/domain/plugin"
 )
@@ -33,7 +33,7 @@ func New() p.Plugin {
 }
 
 type plugin struct {
-	instance *dummy.HttpDummy
+	instance dummy.Dummy
 }
 
 var (
@@ -74,11 +74,14 @@ func (p plugin) Meta() meta.Meta {
 }
 
 func (p plugin) Start(ctx context.Context, registry registry.Registry) error {
-/*	if p.instance == nil {
-		p.instance = service.NewService()
-		http, _ := registry.Http()
-		service.Transport(http, p.instance, registry.Logger(p.Meta()))
-	}*/
+	if p.instance == nil {
+		var err error
+		p.instance, err= dummy2.New(registry)
+		if err!=nil{
+			return err
+		}
+	}
+
 	return nil
 }
 
