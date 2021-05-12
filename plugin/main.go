@@ -15,6 +15,7 @@ package plugin
 
 import (
 	"context"
+
 	"github.com/nori-io/common/v4/pkg/domain/config"
 	em "github.com/nori-io/common/v4/pkg/domain/enum/meta"
 	"github.com/nori-io/common/v4/pkg/domain/logger"
@@ -37,9 +38,7 @@ type plugin struct {
 	Inst http.Http
 }
 
-var (
-	Plugin plugin
-)
+var Plugin plugin
 
 func (p plugin) Init(ctx context.Context, config config.Config, log logger.FieldLogger) error {
 	return nil
@@ -63,9 +62,9 @@ func (p plugin) Meta() meta.Meta {
 			http.HttpInterface,
 		},
 		Description: nil,
-		Interface:dummy.DummyInterface ,
-		License: nil,
-		Links:nil,
+		Interface:   dummy.DummyInterface,
+		License:     nil,
+		Links:       nil,
 		Repository: m.Repository{
 			Type: em.Git,
 			URL:  "github.com/nori-plugins/dummy",
@@ -77,8 +76,8 @@ func (p plugin) Meta() meta.Meta {
 func (p plugin) Start(ctx context.Context, registry registry.Registry) error {
 	if p.Inst == nil {
 		var err error
-		p.Inst, err= http.GetHttp(registry)
-		if err!=nil{
+		p.Inst, err = http.GetHttp(registry)
+		if err != nil {
 			return err
 		}
 
@@ -86,8 +85,8 @@ func (p plugin) Start(ctx context.Context, registry registry.Registry) error {
 			R:           p.Inst,
 			TestHandler: &test.TestHandler{},
 		})
-
 	}
+
 	return nil
 }
 
