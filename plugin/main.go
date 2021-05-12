@@ -22,7 +22,8 @@ import (
 	"github.com/nori-io/common/v4/pkg/domain/registry"
 	m "github.com/nori-io/common/v4/pkg/meta"
 	"github.com/nori-io/interfaces/nori/http"
-	dummy2 "github.com/nori-plugins/dummy/internal/dummy"
+	http2 "github.com/nori-plugins/dummy/internal/handler/http"
+	"github.com/nori-plugins/dummy/internal/handler/http/test"
 	"github.com/nori-plugins/dummy/pkg/dummy"
 
 	p "github.com/nori-io/common/v4/pkg/domain/plugin"
@@ -33,7 +34,7 @@ func New() p.Plugin {
 }
 
 type plugin struct {
-	instance dummy.Dummy
+	Inst http.Http
 }
 
 var (
@@ -45,13 +46,13 @@ func (p plugin) Init(ctx context.Context, config config.Config, log logger.Field
 }
 
 func (p *plugin) Instance() interface{} {
-	return p.instance
+	return p.Inst
 }
 
 func (p plugin) Meta() meta.Meta {
 	return m.Meta{
 		ID: m.ID{
-			ID:      "nori/custom/dummy",
+			ID:      "nori/http/dummy",
 			Version: "1.0.0",
 		},
 		Author: m.Author{
@@ -74,18 +75,22 @@ func (p plugin) Meta() meta.Meta {
 }
 
 func (p plugin) Start(ctx context.Context, registry registry.Registry) error {
-	if p.instance == nil {
+	if p.Inst == nil {
 		var err error
-		p.instance, err= dummy2.New(registry)
+		p.Inst, err= http.GetHttp(registry)
 		if err!=nil{
 			return err
 		}
-	}
 
+		http2.New(http2.Params{
+			R:           p.Inst,
+			TestHandler: &test.TestHandler{},
+		})
+
+	}
 	return nil
 }
 
 func (p plugin) Stop(ctx context.Context, registry registry.Registry) error {
-	p.instance = nil
 	return nil
 }
