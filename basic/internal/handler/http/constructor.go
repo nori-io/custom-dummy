@@ -2,7 +2,7 @@ package http
 
 import (
 	"github.com/nori-io/interfaces/nori/http"
-	"github.com/nori-plugins/dummy/internal/handler/http/test"
+	"github.com/nori-plugins/dummy/basic/internal/handler/http/test"
 )
 
 type Handler struct {

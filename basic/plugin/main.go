@@ -23,9 +23,9 @@ import (
 	"github.com/nori-io/common/v4/pkg/domain/registry"
 	m "github.com/nori-io/common/v4/pkg/meta"
 	"github.com/nori-io/interfaces/nori/http"
-	http2 "github.com/nori-plugins/dummy/internal/handler/http"
-	"github.com/nori-plugins/dummy/internal/handler/http/test"
-	"github.com/nori-plugins/dummy/pkg/dummy"
+	http2 "github.com/nori-plugins/dummy/basic/internal/handler/http"
+	"github.com/nori-plugins/dummy/basic/internal/handler/http/test"
+	"github.com/nori-plugins/dummy/basic/pkg/dummy"
 
 	p "github.com/nori-io/common/v4/pkg/domain/plugin"
 )
