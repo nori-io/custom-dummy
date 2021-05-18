@@ -23,9 +23,9 @@ import (
 	"github.com/nori-io/common/v4/pkg/domain/registry"
 	m "github.com/nori-io/common/v4/pkg/meta"
 	"github.com/nori-io/interfaces/nori/http"
-	http2 "github.com/nori-plugins/dummy/basic/internal/handler/http"
-	"github.com/nori-plugins/dummy/basic/internal/handler/http/test"
 	"github.com/nori-plugins/dummy/basic/pkg/dummy"
+	http2 "github.com/nori-plugins/dummy/installable/internal/handler/http"
+	"github.com/nori-plugins/dummy/installable/internal/handler/http/test"
 
 	p "github.com/nori-io/common/v4/pkg/domain/plugin"
 )
@@ -94,4 +94,9 @@ func (p plugin) Stop(ctx context.Context, registry registry.Registry) error {
 	return nil
 }
 
-//@todo installable interface implement functions
+func (p plugin) Install(ctx context.Context, registry registry.Registry) error {
+	return nil
+}
+func (p plugin) UnInstall(ctx context.Context, registry registry.Registry) error {
+	return nil
+}
