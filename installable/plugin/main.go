@@ -94,4 +94,4 @@ func (p plugin) Stop(ctx context.Context, registry registry.Registry) error {
 	return nil
 }
 
-//@todo installable interface
+//@todo installable interface implement functions
