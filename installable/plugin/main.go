@@ -93,3 +93,5 @@ func (p plugin) Start(ctx context.Context, registry registry.Registry) error {
 func (p plugin) Stop(ctx context.Context, registry registry.Registry) error {
 	return nil
 }
+
+//@todo installable interface
