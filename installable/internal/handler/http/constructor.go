@@ -21,8 +21,8 @@ func New(params Params) *Handler {
 		TestHandler: params.TestHandler,
 	}
 
-	handler.R.Get("/dummy", handler.TestHandler.GetMessage)
-	handler.R.Post("/dummy", handler.TestHandler.PostMessage)
+	handler.R.Get("/dummy/installable", handler.TestHandler.GetMessage)
+	handler.R.Post("/dummy/installable", handler.TestHandler.PostMessage)
 
 	return &handler
 }

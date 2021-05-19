@@ -6,23 +6,23 @@ import (
 )
 
 type Handler struct {
-	R                      http.Http
-	TestHandler           *test.TestHandler
+	R           http.Http
+	TestHandler *test.TestHandler
 }
 
 type Params struct {
-	R                      http.Http
-	TestHandler           *test.TestHandler
-
+	R           http.Http
+	TestHandler *test.TestHandler
 }
+
 func New(params Params) *Handler {
 	handler := Handler{
-		R:                      params.R,
-	TestHandler: params.TestHandler,
+		R:           params.R,
+		TestHandler: params.TestHandler,
 	}
 
-	handler.R.Get("/dummy", handler.TestHandler.GetMessage)
-	handler.R.Post("/dummy", handler.TestHandler.PostMessage)
+	handler.R.Get("/dummy/basic", handler.TestHandler.GetMessage)
+	handler.R.Post("/dummy/basic", handler.TestHandler.PostMessage)
 
 	return &handler
 }
