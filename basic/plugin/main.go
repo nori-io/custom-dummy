@@ -16,18 +16,18 @@ package main
 import (
 	"context"
 
-	"github.com/nori-io/common/v4/pkg/domain/config"
-	em "github.com/nori-io/common/v4/pkg/domain/enum/meta"
-	"github.com/nori-io/common/v4/pkg/domain/logger"
-	"github.com/nori-io/common/v4/pkg/domain/meta"
-	"github.com/nori-io/common/v4/pkg/domain/registry"
-	m "github.com/nori-io/common/v4/pkg/meta"
+	"github.com/nori-io/common/v5/pkg/domain/config"
+	em "github.com/nori-io/common/v5/pkg/domain/enum/meta"
+	"github.com/nori-io/common/v5/pkg/domain/logger"
+	"github.com/nori-io/common/v5/pkg/domain/meta"
+	"github.com/nori-io/common/v5/pkg/domain/registry"
+	m "github.com/nori-io/common/v5/pkg/meta"
 	"github.com/nori-io/interfaces/nori/http"
 	http2 "github.com/nori-plugins/dummy/basic/internal/handler/http"
 	"github.com/nori-plugins/dummy/basic/internal/handler/http/test"
 	"github.com/nori-plugins/dummy/basic/pkg/dummy"
 
-	p "github.com/nori-io/common/v4/pkg/domain/plugin"
+	p "github.com/nori-io/common/v5/pkg/domain/plugin"
 )
 
 func New() p.Plugin {
