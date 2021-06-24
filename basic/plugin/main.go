@@ -22,8 +22,8 @@ import (
 	"github.com/nori-io/common/v5/pkg/domain/meta"
 	"github.com/nori-io/common/v5/pkg/domain/registry"
 	m "github.com/nori-io/common/v5/pkg/meta"
-	"github.com/nori-io/interfaces/nori/http"
-	http2 "github.com/nori-plugins/dummy/basic/internal/handler/http"
+	"github.com/nori-io/interfaces/nori/http/v2"
+	internal_http "github.com/nori-plugins/dummy/basic/internal/handler/http"
 	"github.com/nori-plugins/dummy/basic/internal/handler/http/test"
 	"github.com/nori-plugins/dummy/basic/pkg/dummy"
 
@@ -35,23 +35,21 @@ func New() p.Plugin {
 }
 
 type plugin struct {
-	Inst http.Http
+	router http.Router
 }
-
-var Plugin plugin
 
 func (p plugin) Init(ctx context.Context, config config.Config, log logger.FieldLogger) error {
 	return nil
 }
 
 func (p *plugin) Instance() interface{} {
-	return p.Inst
+	return p.router
 }
 
 func (p plugin) Meta() meta.Meta {
 	return m.Meta{
 		ID: m.ID{
-			ID:      "nori/http/dummy",
+			ID:      "nori/http/dummy/Basic",
 			Version: "1.0.0",
 		},
 		Author: m.Author{
@@ -59,7 +57,7 @@ func (p plugin) Meta() meta.Meta {
 			URL:  "https://nori.io",
 		},
 		Dependencies: []meta.Dependency{
-			http.HttpInterface,
+			http.RouterInterface,
 		},
 		Description: nil,
 		Interface:   dummy.DummyInterface,
@@ -74,15 +72,15 @@ func (p plugin) Meta() meta.Meta {
 }
 
 func (p plugin) Start(ctx context.Context, registry registry.Registry) error {
-	if p.Inst == nil {
+	if p.router == nil {
 		var err error
-		p.Inst, err = http.GetHttp(registry)
+		p.router, err = http.GetRouter(registry)
 		if err != nil {
 			return err
 		}
 
-		http2.New(http2.Params{
-			R:           p.Inst,
+		internal_http.New(internal_http.Params{
+			R:           p.router,
 			TestHandler: &test.TestHandler{},
 		})
 	}
